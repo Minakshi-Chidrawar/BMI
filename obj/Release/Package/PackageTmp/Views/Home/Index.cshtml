@@ -1,0 +1,99 @@
+﻿@model BMI.Models.CalculateBMI
+
+
+@*@Html.Partial("_BMI")*@
+@*@Html.Partial("_BMIResult")*@
+
+@using (Html.BeginForm("BMIResult", "Home"))
+{
+    @Html.ValidationSummary(true)
+    <form class="form-horizontal form-inline">
+        <fieldset>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2"
+                        style="margin-top:30px; border: 1px solid #ccc; padding-bottom:20px; padding-top:10px;  box-shadow:5px 5px 10px rgba(0,0,0,.6)">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">BMI</h3>
+                        </div>
+
+                        <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="row weightLBPop"></div>
+                                        <div class="row weightKGPop"></div>
+                                        <div class='row'>
+                                            <div class='col-xs-6 col-sm-5'>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(b => b.Weight)
+                                                    @Html.TextBoxFor(b => b.Weight, new { @class = "form-control", placeholder = "Enter Weight" })
+                                                    @Html.ValidationMessageFor(b => b.Weight)
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-3">
+                                                <div class="form-group">
+                                                    @Html.Label(" ")
+                                                    @Html.DropDownListFor(b => b.WtUnit, BMI.Models.CalculateBMI.GetWtUnitSelectItems(), new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row heightFIPop"></div>
+                                        <div class='row'>
+                                            <div class='col-xs-6 col-sm-5'>
+                                                <div class="form-group" style="font: bolder;">
+                                                    @Html.LabelFor(b => b.Height)
+                                                    @Html.TextBoxFor(b => b.Height, new { @class = "form-control", placeholder = "Enter Height" })
+                                                    @Html.ValidationMessageFor(b => b.Height)
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-4">
+                                                <div class="form-group">
+                                                    @Html.Label(" ")
+                                                    @Html.DropDownListFor(b => b.HtUnit, BMI.Models.CalculateBMI.GetHtUnitSelectItems(), new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="row agePop"></div>
+                                        <div class="row">
+                                            <div class="col-xs-9  col-sm-5">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(b => b.Age)
+                                                    @Html.TextBoxFor(b => b.Age, new { @class = "form-control", placeholder = "Enter Age" })
+                                                    @Html.ValidationMessageFor(b => b.Age)
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-9 col-sm-4">
+                                                <div class="form-group">
+                                                    @Html.Label(" ")
+                                                    @Html.DropDownListFor(b => b.Gender, BMI.Models.CalculateBMI.GetGenderSelectItems(), new { @class = "form-control" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-10 col-sm-3">
+                                    <div class="row" style="margin-top: 40px">
+                                        <button class="btn btn-info" type="submit">&nbsp;&nbsp;&nbsp;BMI&nbsp;&nbsp;&nbsp;</button>
+                                        <button class="btn btn-info" type="reset">&nbsp;&nbsp;Reset&nbsp;&nbsp;</button>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+}

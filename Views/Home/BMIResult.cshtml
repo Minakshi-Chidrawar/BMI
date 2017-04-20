@@ -1,0 +1,58 @@
+﻿@model BMI.Models.CalculateBMI
+
+
+<form class="form-horizontal form-inline">
+    <fieldset>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2"
+                 style="border: 1px solid #ccc; padding-bottom:20px; padding-top:10px;  box-shadow:5px 5px 10px rgba(0,0,0,.6)">
+                <div class="row">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">BMI</h3>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h5>
+                                        Your Weight: @Html.DisplayFor(b => b.Weight) @Html.DisplayFor(b => b.WtUnit)
+                                    </h5>
+                                    <h5>
+                                        Your Height: @Html.DisplayFor(b => b.Height) @Html.DisplayFor(b => b.HtUnit)
+                                    </h5>
+                                    @{
+                                        if (Model.BMI <= 18.5)
+                                        {
+                                            <h5 style="color:#5252ef"> You are <strong>UNDERWEIGHT</strong> and BMI is : @Html.DisplayFor(b => b.BMI)</h5>
+                                        }
+                                        else if (Model.BMI <= 24.9)
+                                        {
+                                            <h5 style="color:#218d7f"> You are <strong>HEALTHY</strong> and BMI is : @Html.DisplayFor(b => b.BMI)</h5>
+                                        }
+                                        else if (Model.BMI <= 29.9)
+                                        {
+                                            <h5 style="color:#f6c31b"> You are <strong>OVERWEIGHT</strong> and BMI is : @Html.DisplayFor(b => b.BMI)</h5>
+                                        }
+                                        else
+                                        {
+                                            <h5 style="color:#ff6a00"> You are <strong>OBESE</strong> and BMI is : @Html.DisplayFor(b => b.BMI)</h5>
+                                        }
+                                    }
+                                    <h5>Ideal body weight is: @Html.DisplayFor(b => b.IdealBodyWt)</h5>
+                                </div>
+                                <div style="margin-top: 5%;">
+                                    @Html.ActionLink("BMI Calculator", "Index", "Home", new { @class = "btn btn-warning  btn-lg" })
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div id="chart-container"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>
