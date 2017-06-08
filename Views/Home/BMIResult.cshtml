@@ -1,20 +1,19 @@
 ﻿@model BMI.Models.CalculateBMI
 
-
 <form class="form-horizontal form-inline">
     <fieldset>
         <div class="row">
             <div class="col-md-8 col-md-offset-2"
                  style="border: 1px solid #ccc; padding-bottom:20px; padding-top:10px;  box-shadow:5px 5px 10px rgba(0,0,0,.6)">
                 <div class="row">
-                    <div class="panel panel-success">
+                    <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h3 class="panel-title">BMI</h3>
+                            <h3 class="panel-title">BMI Result</h3>
                         </div>
 
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-8">
                                     <h5>
                                         Your Weight: @Html.DisplayFor(b => b.Weight) @Html.DisplayFor(b => b.WtUnit)
                                     </h5>
@@ -24,28 +23,42 @@
                                     @{
                                         if (Model.BMI <= 18.5)
                                         {
-                                            <h5 style="color:#5252ef"> You are <strong>UNDERWEIGHT</strong> and BMI is : @Html.DisplayFor(b => b.BMI)</h5>
+                                            <div style="font-family: 'Franklin Gothic'; font-size: 14px; font-weight: 400;">
+                                                <h4 style="color:#5252ef;"><i> You are <strong>UNDERWEIGHT</strong> and <strong>BMI</strong> is : <strong>@Html.DisplayFor(b => b.BMI).</strong><br /> A BMI of 18.5 - 25 is considered healthy</i></h4>
+                                                <p>
+                                                    Being underweight can damage your health and can contribute to a weakened immune system, fragile bones, fertility problems and a lack of energy. <br />
+                                                    There might be an underlying medical cause for your low weight, such as an overactive thyroid. Or you may simply be underweight because your diet isn't providing you with enough energy (calories). Stress or other emotional problems can sometimes cause a change in eating patterns. See your GP for help and advice.
+                                                </p>
+                                            </div>
                                         }
                                         else if (Model.BMI <= 24.9)
                                         {
-                                            <h5 style="color:#218d7f"> You are <strong>HEALTHY</strong> and BMI is : @Html.DisplayFor(b => b.BMI)</h5>
+                                            <div style="font-family: 'Franklin Gothic'; font-size: 14px; font-weight: 400;">
+                                                <h4 style="color:#22e44a;"><i> You are <strong>HEALTHY</strong> and <strong>BMI</strong> is : <strong>@Html.DisplayFor(b => b.BMI).</strong><br /> A BMI of 18.5 - 25 is considered healthy</i></h4>
+                                                <p>By being a healthy weight, you are at a lower risk of heart disease, stroke and type 2 diabetes than if you were overweight or obese. Remember, it's still important to eat a healthy, balanced diet and include physical activity in your daily life if you want to maintain a healthy weight.</p>
+                                            </div>
                                         }
                                         else if (Model.BMI <= 29.9)
                                         {
-                                            <h5 style="color:#f6c31b"> You are <strong>OVERWEIGHT</strong> and BMI is : @Html.DisplayFor(b => b.BMI)</h5>
+                                            <div style="font-family: 'Franklin Gothic'; font-size: 14px; font-weight: 400;">
+                                                <h4 style="color:#ffd800;"><i> You are <strong>OVERWEIGHT</strong> and <strong>BMI</strong> is : <strong>@Html.DisplayFor(b => b.BMI).</strong><br /> A BMI of 18.5 - 25 is considered healthy</i></h4>
+                                                <p>Your BMI is above the ideal range and indicates you are overweight. This means you are heavier than is healthy for someone of your height. Excess weight can put you at increased risk of heart disease, stroke and type 2 diabetes. It's time to take action. See the links at the end of this tool for loads of help and advice on what you can do.</p>
+                                            </div>
                                         }
                                         else
                                         {
-                                            <h5 style="color:#ff6a00"> You are <strong>OBESE</strong> and BMI is : @Html.DisplayFor(b => b.BMI)</h5>
+                                            <div style="font-family: 'Franklin Gothic'; font-size: 14px; font-weight: 400;">
+                                                <h4 style="color:#ff6a00;"><i> You are <strong>OBESE</strong> and <strong>BMI</strong> is : <strong>@Html.DisplayFor(b => b.BMI).</strong><br /> A BMI of 18.5 - 25 is considered healthy</i></h4>
+                                                <p>Your BMI is well above the ideal range and indicates you are obese. Being obese puts you at raised risk of health problems such as heart disease, stroke and type 2 diabetes. Losing weight will bring signficant health improvements. See the links at the end of this tool for loads of help and advice on what you can do.</p>
+                                            </div>
                                         }
                                     }
-                                    <h5>Ideal body weight is: @Html.DisplayFor(b => b.IdealBodyWt)</h5>
                                 </div>
-                                <div style="margin-top: 5%;">
+                                <div style="margin-top: 10%; margin-left: 70%;">
                                     @Html.ActionLink("BMI Calculator", "Index", "Home", new { @class = "btn btn-warning  btn-lg" })
                                 </div>
                             </div>
-                            <div class="col-sm-12">
+                            <div class="col-sm-12" style="margin-top: 2%;">
                                 <div id="chart-container"></div>
                             </div>
                         </div>
@@ -56,3 +69,77 @@
         </div>
     </fieldset>
 </form>
+
+@* Chart script *@
+<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/themes/fusioncharts.theme.fint.js?cacheBust=56"></script>
+<script type="text/javascript">
+        FusionCharts.ready(function () {
+            var fusioncharts = new FusionCharts({
+                type: 'hlineargauge',
+                renderAt: 'chart-container',
+                id: 'cpu-linear-gauge',
+                width: '500',
+                height: '110',
+                dataFormat: 'json',
+                dataSource: {
+                    "chart": {
+                        "theme": "fint",
+                        "captionPadding": "0",
+                        "valueAbovePointer": "6",
+                        "valueFontSize": "9",
+                        "valueFontBold": "0",
+                        "chartBottomMargin": "20",
+                        "gaugeFillMix": "{light-10},{light-70},{dark-10}",
+                        "gaugeFillRatio": "40,20,40"
+                    },
+                    "colorRange": {
+                        "color": [
+                            {
+                                "minValue": "0",
+                                "maxValue": "18.5",
+                                "label": "UnderWeight",
+                                "code": "#5252ef"
+                            },
+                            {
+                                "minValue": "18.5",
+                                "maxValue": "24.9",
+                                "label": "Healthy",
+                                "code": "#22e44a"
+                            },
+                            {
+                                "minValue": "24.9",
+                                "maxValue": "29.9",
+                                "label": "OverWeight",
+                                "code": "#f6c31b"
+                            },
+                            {
+                                "minValue": "30",
+                                "maxValue": "40",
+                                "label": "Obese",
+                                "code": "#ff6a00"
+                            }
+                        ]
+                    },
+                    "pointers": {
+                        "pointer": [
+                            {
+                                //Adding custom tooltext
+                                //"toolText": "BMI $value",
+                                "value": "15"
+                    }
+                ]
+            }
+         },
+                "events": {
+                    "rendered" : function (evtObj, argObj){
+                        var intervalVar = setInterval(function () {
+                            var prcnt = 65 + parseInt( Math.floor(Math.random() * 10), 10);
+                            FusionCharts.items["cpu-linear-gauge"].feedData("value="+(@Model.BMI));
+                        }, 5000);
+                    }
+                }
+            })
+        .render();
+        });
+</script>

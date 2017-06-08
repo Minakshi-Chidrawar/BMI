@@ -3,81 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - BMI Calculator</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
     <meta name="description" content="The description of my page" />
-
-    @* Chart script *@
-    <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
-    <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/themes/fusioncharts.theme.fint.js?cacheBust=56"></script>
-    <script type="text/javascript">
-        FusionCharts.ready(function(){
-        var fusioncharts = new FusionCharts({
-        type: 'pyramid',
-        renderAt: 'chart-container',
-        id: 'wealth-pyramid-chart-2',
-        width: '500',
-        height: '400',
-        dataFormat: 'json',
-        dataSource: {
-            "chart": {
-                "theme": "fint",
-                "caption": "BMI Chart",
-                "captionOnTop": "0",
-                "captionPadding": "25",
-                "alignCaptionWithCanvas": "1",
-                "borderAlpha": "20",
-                "is2D": "1",
-                "bgColor": "#ffffff",
-                "showValues": "0",
-                "numberPrefix": "$",
-                "numberSuffix": "M",
-                "plotTooltext": "$label",
-                "showPercentValues": "1",
-                "chartLeftMargin": "40",
-                "showLabels": "0",
-                "showLegend": "1",
-                "legendPosition": "RIGHT"
-            },
-            "data": [{
-                      "label": "Underweight (0 - 18.5)",
-                      "value": "70"
-                     },
-                    {
-                        "label": "Healthy (18.5 - 24.9)",
-                        "value": "50.9"
-                    },
-                    {
-                        "label": "Overweight (24.9 - 29.9)",
-                        "value": "40"
-                    },
-                    {
-                        "label": "Obese (> 30)",
-                        "value": "30"
-                    }]
-                    }
-
-         });
-        fusioncharts.render();
-        });
-    </script>
 </head>
 <body>
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                @Html.ActionLink("BMI Calculator", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-        </div>
-    </div>*@
     <div class="container body-content">
         @RenderBody()
-        @*<hr />*@
-        @*<footer style="text-align: center">
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>*@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
